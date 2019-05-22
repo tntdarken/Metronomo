@@ -18,7 +18,7 @@
         android:id="@+id/id_seekbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:max="10" />
+        android:max="220" />
 
     <Button
         android:id="@+id/button"
@@ -33,5 +33,11 @@
         android:layout_height="wrap_content"
         android:onClick="stop"
         android:text="Stop" />
+
+    <TextView
+        android:id="@+id/bpm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
 
 </LinearLayout>
