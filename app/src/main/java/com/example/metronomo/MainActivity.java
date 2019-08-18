@@ -30,24 +30,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         this.seek = findViewById(R.id.id_seekbar);
         this.txBpm = findViewById(R.id.bpm);
+        this.txBpm.setText(String.valueOf(this.seek.getMin()));
         this.val = 0;
         this.metronomo = new Metronomo_alt(findViewById(android.R.id.content));
         this.seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
-
+            int progress;
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                Log.d("progress", String.valueOf(progress));
-                if(val != progress){
-                    val = progress;
-                    metronomo.stop();
-
-                    Integer teste = (val * 1000)/60;
-
-                    txBpm.setText(val.toString());
-
-                    metronomo.start(teste);
-                }
+                this.progress = progress;
+                txBpm.setText(String.valueOf(progress));
             }
 
             @Override
@@ -56,6 +48,15 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+                if(val != progress){
+                    val = progress;
+
+                    if(metronomo.getStatus()){
+                        metronomo.stop();
+                        metronomo.start(60000/val);
+                    }
+
+                }
 
             }
         });
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void start(View v){
         // esta é uma forma de fazer a contagem sem usar métodos do sistema.
-        metronomo.start(500);
+        metronomo.start(60000/Integer.parseInt(this.txBpm.getText().toString()));
     }
 
     public void stop(View v){

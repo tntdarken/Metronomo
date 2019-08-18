@@ -16,6 +16,7 @@ public class Metronomo_alt implements Runnable {
 
         public Metronomo_alt(View v) {
             this.v = v;
+            running = 0;
         }
 
         public void start(Integer bp) {
@@ -23,6 +24,14 @@ public class Metronomo_alt implements Runnable {
             bpm = bp;
             worker = new Thread(this);
             worker.start();
+        }
+
+        public Boolean getStatus(){
+            if(running == 2){
+                return true;
+            } else {
+                return false;
+            }
         }
 
         public void stop() {
@@ -48,9 +57,9 @@ public class Metronomo_alt implements Runnable {
 //                    }
 
                 // trecho que bota o som caso ele seja picado. Lembrando, ele deve ter um longo periodo de pausa
-                if(Calendar.getInstance().getTimeInMillis()-calendar > bpm){
+                if(Calendar.getInstance().getTimeInMillis()-calendar > bpm-1){
 //                    vibrator.vibrate(20);
-                    Log.d("a", String.valueOf(y));
+                    Log.d("a", String.valueOf(Calendar.getInstance().getTimeInMillis()-calendar));
                     calendar = Calendar.getInstance().getTimeInMillis();
                     mp.seekTo(0);
                 }
