@@ -36,6 +36,9 @@ public class Metronomo_alt implements Runnable {
 
         public void stop() {
             running = 0;
+            if(this.getStatus()){
+                worker.interrupt();
+            }
         }
 
         public void run() {

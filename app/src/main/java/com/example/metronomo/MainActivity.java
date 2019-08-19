@@ -65,7 +65,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void start(View v){
         // esta é uma forma de fazer a contagem sem usar métodos do sistema.
-        metronomo.start(60000/Integer.parseInt(this.txBpm.getText().toString()));
+        if(!metronomo.getStatus()) {
+            metronomo.start(60000 / Integer.parseInt(this.txBpm.getText().toString()));
+        }
     }
 
     public void stop(View v){
